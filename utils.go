@@ -3,6 +3,8 @@ package aoc2023
 import (
 	"fmt"
 	"os"
+	"regexp"
+	"strings"
 	"testing"
 
 	"github.com/mymmrac/x"
@@ -35,4 +37,15 @@ func Run(t *testing.T, i int, test Test) {
 	} else {
 		require.EqualValues(t, test.Answer, answer)
 	}
+}
+
+func TrimSpaces(input string) string {
+	input = regexp.MustCompile(`[ \t]+`).ReplaceAllString(input, " ")
+	input = strings.TrimSpace(input)
+	return input
+}
+
+func RemoveSpaces(input string) string {
+	input = regexp.MustCompile(`[ \t]+`).ReplaceAllString(input, "")
+	return input
 }
