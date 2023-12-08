@@ -39,13 +39,34 @@ func Run(t *testing.T, i int, test Test) {
 	}
 }
 
+var cleanSet = regexp.MustCompile(`[ \t]+`)
+
 func TrimSpaces(input string) string {
-	input = regexp.MustCompile(`[ \t]+`).ReplaceAllString(input, " ")
+	input = cleanSet.ReplaceAllString(input, " ")
 	input = strings.TrimSpace(input)
 	return input
 }
 
 func RemoveSpaces(input string) string {
-	input = regexp.MustCompile(`[ \t]+`).ReplaceAllString(input, "")
+	input = cleanSet.ReplaceAllString(input, "")
 	return input
+}
+
+func GCD(a, b int64) int64 {
+	for b != 0 {
+		t := b
+		b = a % b
+		a = t
+	}
+	return a
+}
+
+func LCM(a, b int64, integers ...int64) int64 {
+	result := a * b / GCD(a, b)
+
+	for i := 0; i < len(integers); i++ {
+		result = LCM(result, integers[i])
+	}
+
+	return result
 }
